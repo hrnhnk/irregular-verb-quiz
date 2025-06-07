@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>不規則動詞クイズ（20問）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: sans-serif; padding: 10px; background:#fdfaf6; color:#333; }
+  .card { background:#fff; border-radius:8px; padding:20px; margin-bottom:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+  button { display:block; width:100%; margin:8px 0; padding:12px; background:#e7dede; border:none; border-radius:6px; font-size:18px; }
+  button.correct { background:#c8e6c9; }
+  .timer { font-size:18px; margin-bottom:10px; }
+</style>
+</head>
+<body>
+<h2>不規則動詞クイズ（20問）</h2>
+<div id="quiz"></div>
+<script>
+let quizData = [
+  {jp:"〜である、ある",choices:["be","begin","break","bring"],ans:"be"},
+  {jp:"〜になる",choices:["come","cost","cut","become"],ans:"become"},
+  {jp:"噛む",choices:["cut","bite","bring","give"],ans:"bite"},
+  {jp:"吹く",choices:["blow","break","burn","catch"],ans:"blow"},
+  {jp:"壊す",choices:["break","burn","bring","buy"],ans:"break"},
+  {jp:"持ってくる",choices:["bring","build","choose","come"],ans:"bring"},
+  {jp:"建てる",choices:["burn","build","buy","catch"],ans:"build"},
+  {jp:"燃える",choices:["burn","buy","choose","come"],ans:"burn"},
+  {jp:"買う",choices:["bring","buy","break","catch"],ans:"buy"},
+  {jp:"捕まえる",choices:["catch","choose","come","cut"],ans:"catch"},
+    {jp:"選ぶ",choices:["choose","come","cost","cut"],ans:"choose"},
+  {jp:"来る",choices:["come","cost","cut","dig"],ans:"come"},
+  {jp:"切る",choices:["cry","cut","choose","come"],ans:"cut"},
+  {jp:"掘る",choices:["dig","drink","drive","eat"],ans:"dig"},
+  {jp:"する",choices:["do","draw","drink","eat"],ans:"do"},
+  {jp:"描く",choices:["drink","drive","draw","eat"],ans:"draw"},
+  {jp:"飲む",choices:["drive","eat","drink","do"],ans:"drink"},
+  {jp:"運転する",choices:["drive","eat","do","draw"],ans:"drive"},
+  {jp:"食べる",choices:["eat","drive","draw","do"],ans:"eat"}
+];
+let idx=0, score=0, wrong=[];
+function next(){
+  if(idx>=quizData.length){showResult();return;}
+  let q=quizData[idx];
+  document.getElementById('quiz').innerHTML=`
+    <div class="card"><div>${idx+1}. ${q.jp}</div>
+    <div class="timer" id="timer">10</div>
+    ${q.choices.map(c=>`<button onclick="choose('${c}')">${c}</button>`).join('')}
+    </div>`;
+  let t=10;
+  window.timerInterval = setInterval(()=>{
+    t--;
+    document.getElementById('timer').textContent = t;
+    if(t<=0){clearInterval(timerInterval);choose(null);}
+  },1000);
+  speechSynthesis.speak(new SpeechSynthesisUtterance(q.jp));
+}
+function choose(c){
+  clearInterval(timerInterval);
+  let q=quizData[idx];
+  let correct = (c===q.ans);
+  if(correct){score++;}
+  else{wrong.push(idx);}
+  for(let btn of document.querySelectorAll('button')){
+    if(btn.textContent===q.ans) btn.classList.add('correct');
+    btn.disabled=true;
+  }
+  setTimeout(()=>{ idx++; next(); },1000);
+}
+function showResult(){
+  document.getElementById('quiz').innerHTML=`
+    <div class="card">
+      <h3>完了！スコア：${score}/${quizData.length}</h3>
+      <button onclick="retry()">間違えた問題を復習</button>
+    </div>`;
+}
+function retry(){
+  quizData = wrong.map(i=>quizData[i]);
+  idx=0; score=0; wrong=[];
+  next();
+}
+window.onload=next;
+</script>
+</body>
+</html>
