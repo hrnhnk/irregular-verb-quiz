@@ -2,40 +2,41 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>不規則動詞クイズ（20問）</title>
+<title>不規則動詞クイズ（過去形・過去分詞）</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  body { font-family: sans-serif; padding: 10px; background:#fdfaf6; color:#333; }
-  .card { background:#fff; border-radius:8px; padding:20px; margin-bottom:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
-  button { display:block; width:100%; margin:8px 0; padding:12px; background:#e7dede; border:none; border-radius:6px; font-size:18px; }
-  button.correct { background:#c8e6c9; }
-  .timer { font-size:18px; margin-bottom:10px; }
+body { font-family: sans-serif; background:#fff8f2; padding:10px; color:#333; }
+.card { background:#fff; border-radius:10px; padding:20px; margin-bottom:15px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+button { display:block; width:100%; margin:10px 0; padding:14px; background:#f0e1e1; border:none; border-radius:8px; font-size:18px; }
+button.correct { background:#c6f1c6 !important; }
+.timer { font-size:18px; margin-bottom:8px; }
 </style>
 </head>
 <body>
-<h2>不規則動詞クイズ（20問）</h2>
+<h2>不規則動詞クイズ（過去形・過去分詞）</h2>
 <div id="quiz"></div>
 <script>
 let quizData = [
-  {jp:"〜である、ある",choices:["be","begin","break","bring"],ans:"be"},
-  {jp:"〜になる",choices:["come","cost","cut","become"],ans:"become"},
-  {jp:"噛む",choices:["cut","bite","bring","give"],ans:"bite"},
-  {jp:"吹く",choices:["blow","break","burn","catch"],ans:"blow"},
-  {jp:"壊す",choices:["break","burn","bring","buy"],ans:"break"},
-  {jp:"持ってくる",choices:["bring","build","choose","come"],ans:"bring"},
-  {jp:"建てる",choices:["burn","build","buy","catch"],ans:"build"},
-  {jp:"燃える",choices:["burn","buy","choose","come"],ans:"burn"},
-  {jp:"買う",choices:["bring","buy","break","catch"],ans:"buy"},
-  {jp:"捕まえる",choices:["catch","choose","come","cut"],ans:"catch"},
-    {jp:"選ぶ",choices:["choose","come","cost","cut"],ans:"choose"},
-  {jp:"来る",choices:["come","cost","cut","dig"],ans:"come"},
-  {jp:"切る",choices:["cry","cut","choose","come"],ans:"cut"},
-  {jp:"掘る",choices:["dig","drink","drive","eat"],ans:"dig"},
-  {jp:"する",choices:["do","draw","drink","eat"],ans:"do"},
-  {jp:"描く",choices:["drink","drive","draw","eat"],ans:"draw"},
-  {jp:"飲む",choices:["drive","eat","drink","do"],ans:"drink"},
-  {jp:"運転する",choices:["drive","eat","do","draw"],ans:"drive"},
-  {jp:"食べる",choices:["eat","drive","draw","do"],ans:"eat"}
+  {jp:"〜である、ある [過去分詞]", choices:["been","built","cut","drunk"], ans:"been"},
+  {jp:"〜になる [過去形]", choices:["became","ate","did","burned"], ans:"became"},
+  {jp:"噛む [過去分詞]", choices:["bitten","drawn","driven","drunk"], ans:"bitten"},
+  {jp:"吹く [過去形]", choices:["blew","bit","fell","chose"], ans:"blew"},
+  {jp:"壊す [過去分詞]", choices:["broken","drawn","burned","cut"], ans:"broken"},
+  {jp:"持ってくる [過去形]", choices:["brought","drank","dug","ate"], ans:"brought"},
+  {jp:"建てる [過去分詞]", choices:["built","dug","cut","driven"], ans:"built"},
+  {jp:"燃える [過去形]", choices:["burned","did","was/were","fell"], ans:"burned"},
+  {jp:"買う [過去形]", choices:["bought","cut","drank","fell"], ans:"bought"},
+  {jp:"捕まえる [過去形]", choices:["caught","cut","drank","fell"], ans:"caught"},
+  {jp:"選ぶ [過去分詞]", choices:["chosen","built","driven","bitten"], ans:"chosen"},
+  {jp:"来る [過去形]", choices:["came","ate","fell","chose"], ans:"came"},
+  {jp:"切る [過去分詞]", choices:["cut","burned","chosen","dug"], ans:"cut"},
+  {jp:"掘る [過去分詞]", choices:["dug","cut","chose","was/were"], ans:"dug"},
+  {jp:"する [過去形]", choices:["did","came","burned","dug"], ans:"did"},
+  {jp:"描く [過去形]", choices:["drew","caught","dug","chose"], ans:"drew"},
+  {jp:"飲む [過去分詞]", choices:["drunk","bought","driven","cut"], ans:"drunk"},
+  {jp:"運転する [過去分詞]", choices:["driven","caught","built","done"], ans:"driven"},
+  {jp:"食べる [過去形]", choices:["ate","cut","dug","was/were"], ans:"ate"},
+  {jp:"落ちる [過去形]", choices:["fell","did","caught","cut"], ans:"fell"}
 ];
 let idx=0, score=0, wrong=[];
 function next(){
